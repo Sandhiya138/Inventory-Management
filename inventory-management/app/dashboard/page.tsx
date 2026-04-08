@@ -1,58 +1,51 @@
 "use client";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import styles from "./dashboard.module.css";
 
-export default function Dashboard() {
-  const [role, setRole] = useState("");
-
-  useEffect(() => {
-    const userRole = localStorage.getItem("role");
-    if (userRole) {
-      setRole(userRole);
-    }
-  }, []);
-
+export default function AdminDashboard() {
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Dashboard</h1>
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <h1>Admin Control Center</h1>
+        <p>Welcome back! Here is an overview of your system.</p>
+      </header>
 
-      <h2>Welcome, {role}</h2>
+      <div className={styles.grid}>
+        {/* Inventory Card */}
+        <Link href="/inventory" className={styles.card}>
+          <div className={styles.icon}>📦</div>
+          <h3>Stock Levels</h3>
+          <p>Manage products and update quantities.</p>
+        </Link>
 
-      <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
-        
-        {/* Total Products */}
-        <div style={cardStyle}>
-          <h3>Total Products</h3>
-          <p>50</p>
-        </div>
+        {/* Orders Card */}
+        <Link href="/orders" className={styles.card}>
+          <div className={styles.icon}>📝</div>
+          <h3>Order Tracking</h3>
+          <p>Monitor sales and purchase orders.</p>
+        </Link>
 
-        {/* Low Stock */}
-        <div style={cardStyle}>
-          <h3>Low Stock Items</h3>
-          <p>5</p>
-        </div>
+        {/* Reports Card */}
+        <Link href="/reports" className={styles.card}>
+          <div className={styles.icon}>📊</div>
+          <h3>Analytics</h3>
+          <p>View sales trends and inventory reports.</p>
+        </Link>
 
-        {/* Orders */}
-        <div style={cardStyle}>
-          <h3>Total Orders</h3>
-          <p>20</p>
-        </div>
-
+        {/* Users Card */}
+        <Link href="/users" className={styles.card}>
+          <div className={styles.icon}>👥</div>
+          <h3>Team Management</h3>
+          <p>Assign roles and manage user accounts.</p>
+        </Link>
       </div>
 
-      {/* Role Based Content */}
-      <div style={{ marginTop: "30px" }}>
-        {role === "admin" && <p>Admin: Full access to system</p>}
-        {role === "staff" && <p>Staff: Manage inventory & orders</p>}
-        {role === "viewer" && <p>Viewer: View only access</p>}
-      </div>
+      {/* Alerts Section (Embedded in Dashboard) */}
+      <section className={styles.alertsSection}>
+        <h3>⚠️ System Notifications</h3>
+        <div className={styles.alertItem}>Low Stock: iPhone 15 Pro (2 units remaining)</div>
+        <div className={styles.alertItem}>Pending Order: #ORD-992 requires approval.</div>
+      </section>
     </div>
   );
 }
-
-const cardStyle = {
-  padding: "20px",
-  border: "1px solid #ccc",
-  borderRadius: "10px",
-  width: "150px",
-  textAlign: "center" as const,
-};

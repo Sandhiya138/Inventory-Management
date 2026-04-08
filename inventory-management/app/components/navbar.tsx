@@ -1,26 +1,56 @@
 "use client";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import styles from "./navbar.module.css";
 
 export default function Navbar() {
-  return (
-    <nav style={navStyle}>
-      <h2 style={{ color: "black" }}><b><i>Inventory</i></b> Management</h2>
+  const [role, setRole] = useState<string | null>(null);
 
-      <div style={{ display: "flex", gap: "20px" }}>
-        <Link href="/">Home</Link>
-        <Link href="/dashboard">Dashboard</Link>
-        <Link href="/inventory">Inventory</Link>
-        <Link href="/orders">Orders</Link>
-        <Link href="/login">Login</Link>
+  useEffect(() => {
+    const userRole = localStorage.getItem("role");
+    setRole(userRole);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("role");
+    window.location.href = "/";
+  };
+
+  return (
+    <nav className={styles.nav}>
+      <h2 className={styles.title}>InventoryPro</h2>
+
+      <div className={styles.linkGroup}>
+        {/* PUBLIC LINKS */}
+        {!role && (
+          <>
+            <a href="/#home" className={styles.navLink}>Home</a>
+            <a href="/#about" className={styles.navLink}>About</a>
+            <a href="/#features" className={styles.navLink}>Features</a>
+            <a href="/#contact" className={styles.navLink}>Contact</a>
+            <Link href="/login" className={styles.loginBtn}>Login</Link>
+          </>
+        )}
+
+        {/* AUTHENTICATED ADMIN/STAFF LINKS */}
+        {role && (
+          <>
+            <Link href="/dashboard" className={styles.navLink}>Dashboard</Link>
+            <Link href="/inventory" className={styles.navLink}>Inventory</Link>
+            <Link href="/orders" className={styles.navLink}>Orders</Link>
+            
+            {/* Admin Only Links */}
+            {role === 'admin' && (
+              <>
+                <Link href="/users" className={styles.navLink}>Users</Link>
+                <Link href="/reports" className={styles.navLink}>Reports</Link>
+              </>
+            )}
+            
+            <button onClick={handleLogout} className={styles.logoutBtn}>Logout</button>
+          </>
+        )}
       </div>
     </nav>
   );
 }
-
-const navStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  background: "rgb(0, 219, 226);",
-  padding: "15px 20px",
-};

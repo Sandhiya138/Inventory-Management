@@ -1,0 +1,53 @@
+/* components/navbar.module.css */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e293b; /* Professional Navy */
+  padding: 15px 5%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.title {
+  color: #ffffff;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.linkGroup {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.navLink {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.navLink:hover {
+  color: #ffffff;
+}
+
+.loginBtn {
+  padding: 8px 20px;
+  border: 1px solid #3b82f6;
+  border-radius: 6px;
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.logoutBtn {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 500;
+}

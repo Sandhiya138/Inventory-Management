@@ -1,66 +1,65 @@
-@import "tailwindcss";
-:root {
-  --background: #ffffff;
-  --foreground: #fffdfd;
-}
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ffffff;
-    --foreground: #ededed;
-  }
-}
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-.login-container {
+/* login.css & signup.css */
+.login-container{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: #000000;
+  height: 90vh;
+  background-color: #f8fafc; /* Light gray background */
 }
 
 .login-box {
   background: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
 }
 
-.login-box h1 {
+h1 {
   text-align: center;
-  margin-bottom: 20px;
-  color: rgb(78, 75, 75);
+  color: #1e293b;
+  margin-bottom: 25px;
 }
 
-.login-box input {
+input, select {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  color: #302e2e;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #1e293b;
+  outline-color: #2563eb;
 }
 
-.login-box button {
-  width: 100%;
-  padding: 10px;
-  background: #0070f3;
+button {
+  background-color: #2563eb;
   color: white;
+  padding: 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
-.login-box button:hover {
-  background: #005bb5;
+button:hover {
+  background-color: #1d4ed8;
+}
+
+.login-link {
+  margin-top: 15px;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.login-link a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
 }

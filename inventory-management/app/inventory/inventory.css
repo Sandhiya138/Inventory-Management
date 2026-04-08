@@ -1,0 +1,71 @@
+.inventory-container {
+  padding: 20px;
+}
+
+.inventory-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.form-container input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-container button {
+  padding: 10px 15px;
+  background: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-container button:hover {
+  background: #005bb5;
+}
+
+.table-container {
+  width: 80%;
+  margin: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: #0070f3;
+  color: rgb(0, 0, 0);
+  padding: 10px;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  color: #000;
+}
+
+.delete-btn {
+  background: red;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: darkred;
+}
