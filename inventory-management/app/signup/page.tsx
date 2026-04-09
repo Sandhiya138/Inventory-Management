@@ -35,7 +35,7 @@ export default function SignupPage() {
   return (
     <div className="signup-container">
       <div className="signup-box">
-        <h1>Create Account</h1>
+        <h1  style={{ color: "#1e293b", fontSize: "24px" }}>Create Account</h1>
         <input type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />

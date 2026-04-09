@@ -1,5 +1,5 @@
 import styles from "./home.module.css";
-import Features from "./components/features";
+import Features from "@/components/features";
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
         <h1 className={`${styles.title} ${styles.whiteText}`}>Inventory Management System</h1>
         <p style={{ color: '#383a3d' }}>Streamline your stock, optimize your business.</p>
         <img src="/home page.png" alt="Inventory dashboard" className={styles.heroImg} />
-        <p className={styles.description} style={{ color: '#94a3b8' }}>
+        <p className={styles.description} style={{ color: '#1e252e' }}>
           Say goodbye to manual tracking. Our intelligent platform provides end-to-end 
           visibility of your stock, demand forecasting, and optimized reordering.
         </p>
@@ -39,9 +39,40 @@ export default function Home() {
       <section id="contact" className={styles.section}>
         <h1 className={styles.title}>Contact Us</h1>
         <p className={styles.description}>
-          Have questions or need a custom setup? Reach out to our support team.<br />
-          <strong>Email:</strong> support@inventory.com
+          Have questions or need a custom setup? Reach out to our support team.
         </p>
+
+        <div className={styles.contactContainer}>
+          <form className={styles.contactForm}>
+            <div className={styles.inputGroup}>
+              <label htmlFor="name">Full Name</label>
+              <input type="text" id="name" placeholder="Your Name" required />
+            </div>
+            
+            <div className={styles.inputGroup}>
+              <label htmlFor="email">Email Address</label>
+              <input type="email" id="email" placeholder="email@example.com" required />
+            </div>
+
+            <div className={styles.inputGroup}>
+              <label htmlFor="message">Message</label>
+              <textarea id="message" rows={4} placeholder="How can we help you?" required></textarea>
+            </div>
+
+            <button type="submit" className={styles.submitBtn}>Send Message</button>
+          </form>
+
+          <div className={styles.contactInfo}>
+            <div className={styles.infoCard}>
+              <strong>Email:</strong>
+              <p>support@inventory.com</p>
+            </div>
+            <div className={styles.infoCard}>
+              <strong>Support Hours:</strong>
+              <p>Mon - Fri, 9:00 AM - 6:00 PM</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <footer className={styles.footer}>

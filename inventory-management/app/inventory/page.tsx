@@ -1,57 +1,89 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from "react";
+import styles from "./inventory.module.css";
 
-// Mock data - later we will move this to Redux
-const initialProducts = [
-  { id: '1', name: 'Laptop', category: 'Electronics', quantity: 15, price: 1200, status: 'In Stock' },
-  { id: '2', name: 'Desk Chair', category: 'Furniture', quantity: 3, price: 150, status: 'Low Stock' },
-];
+export default function InventoryPage() {
+  // 1. STATE: Start with some data or load from localStorage
+  const [products, setProducts] = useState([
+    { id: 1, name: "Laptop", category: "Electronics", quantity: 10, price: 999 },
+    { id: 2, name: "Office Chair", category: "Furniture", quantity: 4, price: 150 },
+  ]);
 
-export default function AdminInventory() {
-  const [products, setProducts] = useState(initialProducts);
+  const [newItem, setNewItem] = useState({ name: "", category: "", quantity: 0, price: 0 });
+  const [editingId, setEditingId] = useState<number | null>(null);
+
+  // 2. CREATE: Add a new item
+  const handleAddItem = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newItem.name) return;
+    
+    const itemToAdd = { ...newItem, id: Date.now() };
+    setProducts([...products, itemToAdd]);
+    setNewItem({ name: "", category: "", quantity: 0, price: 0 }); // Reset form
+  };
+
+  // 3. DELETE: Remove an item
+  const handleDelete = (id: number) => {
+    if (confirm("Are you sure you want to delete this item?")) {
+      setProducts(products.filter((p) => p.id !== id));
+    }
+  };
+
+  // 4. UPDATE: Save edits
+  const handleEditChange = (id: number, field: string, value: any) => {
+    setProducts(products.map(p => p.id === id ? { ...p, [field]: value } : p));
+  };
 
   return (
-    <div style={{ padding: '20px', backgroundColor: '#f8fafc', minHeight: '100vh' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h1 style={{ color: '#1e293b' }}>Inventory Management</h1>
-        <button style={{ 
-          backgroundColor: '#2563eb', color: 'white', padding: '10px 20px', 
-          borderRadius: '6px', border: 'none', cursor: 'pointer' 
-        }}>
-          + Add New Item
-        </button>
-      </div>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Inventory Management</h1>
 
-      <table style={{ width: '100%', borderCollapse: 'collapse', backgroundColor: 'white', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}>
-        <thead style={{ backgroundColor: '#f1f5f9', textAlign: 'left' }}>
+      {/* ADD ITEM FORM */}
+      <form className={styles.addForm} onSubmit={handleAddItem}>
+        <input type="text" placeholder="Product Name" value={newItem.name} 
+          onChange={(e) => setNewItem({...newItem, name: e.target.value})} required />
+        <input type="text" placeholder="Category" value={newItem.category} 
+          onChange={(e) => setNewItem({...newItem, category: e.target.value})} />
+        <input type="number" placeholder="Qty" value={newItem.quantity} 
+          onChange={(e) => setNewItem({...newItem, quantity: Number(e.target.value)})} />
+        <input type="number" placeholder="Price" value={newItem.price} 
+          onChange={(e) => setNewItem({...newItem, price: Number(e.target.value)})} />
+        <button type="submit" className={styles.addBtn}>Add Product</button>
+      </form>
+
+      {/* INVENTORY TABLE */}
+      <table className={styles.table}>
+        <thead>
           <tr>
-            <th style={tableHeaderStyle}>Product Name</th>
-            <th style={tableHeaderStyle}>Category</th>
-            <th style={tableHeaderStyle}>Quantity</th>
-            <th style={tableHeaderStyle}>Price</th>
-            <th style={tableHeaderStyle}>Status</th>
-            <th style={tableHeaderStyle}>Actions</th>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {products.map((item) => (
-            <tr key={item.id} style={{ borderBottom: '1px solid #e2e8f0' }}>
-              <td style={tableCellStyle}>{item.name}</td>
-              <td style={tableCellStyle}>{item.category}</td>
-              <td style={tableCellStyle}>{item.quantity}</td>
-              <td style={tableCellStyle}>Rs.{item.price}</td>
-              <td style={tableCellStyle}>
-                <span style={{ 
-                  padding: '4px 8px', borderRadius: '12px', fontSize: '12px',
-                  backgroundColor: item.status === 'In Stock' ? '#dcfce7' : '#fef3c7',
-                  color: item.status === 'In Stock' ? '#166534' : '#92400e'
-                }}>
-                  {item.status}
+            <tr key={item.id}>
+              <td>
+                {editingId === item.id ? 
+                  <input value={item.name} onChange={(e) => handleEditChange(item.id, "name", e.target.value)} /> 
+                  : item.name}
+              </td>
+              <td>{item.category}</td>
+              <td>
+                <span style={{ color: item.quantity < 5 ? "red" : "inherit", fontWeight: item.quantity < 5 ? "bold" : "normal" }}>
+                  {item.quantity}
                 </span>
               </td>
-              <td style={tableCellStyle}>
-                <button style={{ marginRight: '10px', color: '#2563eb', border: 'none', background: 'none', cursor: 'pointer' }}>Edit</button>
-                <button style={{ color: '#ef4444', border: 'none', background: 'none', cursor: 'pointer' }}>Delete</button>
+              <td>Rs.{item.price}</td>
+              <td>
+                {editingId === item.id ? (
+                  <button onClick={() => setEditingId(null)} className={styles.saveBtn}>Save</button>
+                ) : (
+                  <button onClick={() => setEditingId(item.id)} className={styles.editBtn}>Edit</button>
+                )}
+                <button onClick={() => handleDelete(item.id)} className={styles.deleteBtn}>Delete</button>
               </td>
             </tr>
           ))}
@@ -60,6 +92,3 @@ export default function AdminInventory() {
     </div>
   );
 }
-
-const tableHeaderStyle = { padding: '12px 15px', fontWeight: '600', color: '#475569' };
-const tableCellStyle = { padding: '12px 15px', color: '#1e293b' };

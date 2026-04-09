@@ -1,0 +1,66 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Admin User",
+      "email": "admin@gmail.com",
+      "password": "123",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "name": "Staff Member",
+      "email": "staff@gmail.com",
+      "password": "123",
+      "role": "staff"
+    }
+  ],
+  "inventory": [
+    {
+      "id": "1",
+      "name": "Laptop Pro 15",
+      "category": "Electronics",
+      "quantity": 12,
+      "price": 85000
+    },
+    {
+      "id": "2",
+      "name": "Ergonomic Chair",
+      "category": "Furniture",
+      "quantity": 3,
+      "price": 12000
+    },
+    {
+      "id": "3",
+      "name": "Wireless Mouse",
+      "category": "Accessories",
+      "quantity": 45,
+      "price": 1500
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD-001",
+      "customer": "John Doe",
+      "date": "2026-04-09",
+      "total": 85000,
+      "status": "Delivered"
+    },
+    {
+      "id": "ORD-002",
+      "customer": "Jane Smith",
+      "date": "2026-04-10",
+      "total": 24000,
+      "status": "Pending"
+    }
+  ],
+  "messages": [
+    {
+      "id": "1",
+      "name": "Inquiry",
+      "email": "guest@example.com",
+      "message": "Do you offer bulk discounts for corporate offices?",
+      "date": "2026-04-09"
+    }
+  ]
+}

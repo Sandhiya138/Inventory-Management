@@ -10,7 +10,11 @@
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
+.logoText {
+  color: #ffffff;
+  font-size: 1.4rem;
+  margin: 0;
+}
 .title {
   color: #ffffff;
   margin: 0;
@@ -39,6 +43,14 @@
   border: 1px solid #3b82f6;
   border-radius: 6px;
   color: #3b82f6;
+  text-decoration: none;
+}
+.signupBtn {
+  padding: 8px 20px;
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+  color: #ffffff;
+  background: #2563eb;
   text-decoration: none;
 }
 

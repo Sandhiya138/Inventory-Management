@@ -2,39 +2,43 @@
 import { useState } from "react";
 import styles from "./orders.module.css";
 
-// Initial Mock Data
 const initialOrders = [
   { id: "ORD-101", customer: "Tech Corp", date: "2026-04-05", total: 1200, status: "Delivered" },
   { id: "ORD-102", customer: "Retail Hub", date: "2026-04-08", total: 450, status: "Pending" },
-  { id: "ORD-103", customer: "Global Ltd", date: "2026-04-09", total: 890, status: "Shipped" },
 ];
 
 export default function OrderManagement() {
   const [orders, setOrders] = useState(initialOrders);
+  const [selectedOrder, setSelectedOrder] = useState<any>(null);
+  const [isEditing, setIsEditing] = useState(false);
 
-  const getStatusClass = (status: string) => {
-    switch (status) {
-      case "Pending": return styles.pending;
-      case "Shipped": return styles.shipped;
-      case "Delivered": return styles.delivered;
-      default: return "";
-    }
+  // --- Functions ---
+  const handleView = (order: any) => {
+    setSelectedOrder(order);
+    setIsEditing(false); // View mode
+  };
+
+  const handleEdit = (order: any) => {
+    setSelectedOrder(order);
+    setIsEditing(true); // Edit mode
+  };
+
+  const closeModal = () => setSelectedOrder(null);
+
+  const updateStatus = (id: string, newStatus: string) => {
+    setOrders(orders.map(o => o.id === id ? { ...o, status: newStatus } : o));
+    closeModal();
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h1>Order Management</h1>
-        <button className={styles.addBtn}>+ Create New Order</button>
-      </div>
-
+      <h1 style={{ color: "#1e293b" }}>Order Management</h1>
+      
       <table className={styles.orderTable}>
         <thead>
           <tr>
             <th>Order ID</th>
-            <th>Customer/Supplier</th>
-            <th>Date</th>
-            <th>Total Amount</th>
+            <th>Customer</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -42,23 +46,48 @@ export default function OrderManagement() {
         <tbody>
           {orders.map((order) => (
             <tr key={order.id}>
-              <td style={{ fontWeight: "600" }}>{order.id}</td>
+              <td>{order.id}</td>
               <td>{order.customer}</td>
-              <td>{order.date}</td>
-              <td>${order.total.toFixed(2)}</td>
+              <td><span className={`${styles.statusBadge} ${styles[order.status.toLowerCase()]}`}>{order.status}</span></td>
               <td>
-                <span className={`${styles.statusBadge} ${getStatusClass(order.status)}`}>
-                  {order.status}
-                </span>
-              </td>
-              <td>
-                <button style={{ background: "none", border: "none", color: "#2563eb", cursor: "pointer", marginRight: "10px" }}>View</button>
-                <button style={{ background: "none", border: "none", color: "#64748b", cursor: "pointer" }}>Edit</button>
+                <button onClick={() => handleView(order)} className={styles.viewBtn}>View</button>
+                <button onClick={() => handleEdit(order)} className={styles.editBtn}>Edit</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {/* MODAL FOR VIEW / EDIT */}
+      {selectedOrder && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <h2>{isEditing ? "Edit Order" : "Order Details"}</h2>
+            <hr />
+            <p><strong>ID:</strong> {selectedOrder.id}</p>
+            <p><strong>Customer:</strong> {selectedOrder.customer}</p>
+            <p><strong>Total:</strong> Rs.{selectedOrder.total}</p>
+            
+            {isEditing ? (
+              <div className={styles.editActions}>
+                <label>Change Status:</label>
+                <select 
+                  defaultValue={selectedOrder.status}
+                  onChange={(e) => updateStatus(selectedOrder.id, e.target.value)}
+                >
+                  <option value="Pending">Pending</option>
+                  <option value="Shipped">Shipped</option>
+                  <option value="Delivered">Delivered</option>
+                </select>
+              </div>
+            ) : (
+              <p><strong>Current Status:</strong> {selectedOrder.status}</p>
+            )}
+
+            <button onClick={closeModal} className={styles.closeBtn}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

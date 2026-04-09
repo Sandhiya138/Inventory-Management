@@ -37,7 +37,7 @@ export default function LoginPage() {
   return (
     <div className="login-container">
       <div className="login-box">
-        <h1>Welcome Back</h1>
+        <h1  style={{ color: "#1e293b", fontSize: "24px" }}>Welcome Back!</h1>
         <input
           type="email"
           placeholder="Email Address"
