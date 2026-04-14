@@ -1,24 +1,58 @@
+"use client";
+
+import { useState } from "react";
 import styles from "./home.module.css";
 import Features from "@/components/features";
 
 export default function Home() {
+
+  // ✅ MOVE HERE (inside component)
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const res = await fetch("http://localhost:5000/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        sender: form.name,
+        email: form.email,
+        content: form.message,
+        date: new Date().toISOString().split("T")[0]
+      })
+    });
+
+    if (res.ok) {
+      alert("Message sent ✅");
+      setForm({ name: "", email: "", message: "" });
+    }
+  };
+
+
   return (
     <div className={styles.mainContainer}>
-      {/* HOME / HERO SECTION */}
+    
       <section id="home" className={`${styles.section} ${styles.heroSection}`}>
         <h1 className={`${styles.title} ${styles.whiteText}`}>Inventory Management System</h1>
-        <p style={{ color: '#383a3d' }}>Streamline your stock, optimize your business.</p>
+        <p style={{ color: '#ffffff', fontFamily:"emoji",fontSize:"20px" }}>Streamline your stock, optimize your business.</p>
         <img src="/home page.png" alt="Inventory dashboard" className={styles.heroImg} />
-        <p className={styles.description} style={{ color: '#1e252e' }}>
+        <p className={styles.description} style={{ color: '#ffffff' ,fontFamily:"emoji",fontSize:"20px"}}>
           Say goodbye to manual tracking. Our intelligent platform provides end-to-end 
           visibility of your stock, demand forecasting, and optimized reordering.
         </p>
       </section>
 
       {/* ABOUT SECTION */}
-      <section id="about" className={styles.section}>
+      <section id="about" className={styles.section} >
         <h1 className={styles.title}>About Us</h1>
-        <p className={styles.description}>
+        <p className={styles.description }style={{ fontFamily:"emoji",fontSize:"20px"}} >
           We are dedicated to helping businesses grow by providing a robust, 
           real-time solution for tracking inventory movements. Whether you are 
           managing a small shop or a large warehouse, our system scales with you.
@@ -27,52 +61,57 @@ export default function Home() {
       </section>
 
       {/* FEATURES SECTION */}
-      <section id="features" className={styles.section}>
+      <section id="features" className={styles.section} style={{}}>
         <h1 className={styles.title}>System Features</h1>
-        <div style={{ width: '100%' }}>
+        <div style={{ width: '100%',fontFamily:"emoji",fontSize:"20px"}}>
           <Features /> 
-          <img src="/feature.png" alt="Inventory dashboard" className={styles.heroImg} />
+          <img src="/feature.png" alt="Inventory dashboard" className={styles.heroImg2} />
         </div>
       </section>
 
       {/* CONTACT SECTION */}
       <section id="contact" className={styles.section}>
         <h1 className={styles.title}>Contact Us</h1>
-        <p className={styles.description}>
-          Have questions or need a custom setup? Reach out to our support team.
-        </p>
 
-        <div className={styles.contactContainer}>
-          <form className={styles.contactForm}>
-            <div className={styles.inputGroup}>
-              <label htmlFor="name">Full Name</label>
-              <input type="text" id="name" placeholder="Your Name" required />
-            </div>
-            
-            <div className={styles.inputGroup}>
-              <label htmlFor="email">Email Address</label>
-              <input type="email" id="email" placeholder="email@example.com" required />
-            </div>
+        <form className={styles.contactForm} onSubmit={handleSubmit}>
+          
+          <input
+            type="text"
+            placeholder="Your Name"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+          />
 
-            <div className={styles.inputGroup}>
-              <label htmlFor="message">Message</label>
-              <textarea id="message" rows={4} placeholder="How can we help you?" required></textarea>
-            </div>
+          <input
+            type="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+          />
 
-            <button type="submit" className={styles.submitBtn}>Send Message</button>
-          </form>
+          <textarea
+            placeholder="Message"
+            value={form.message}
+            onChange={(e) => setForm({ ...form, message: e.target.value })}
+          />
 
+          <button type="submit" className={styles.submitBtn}>
+            Send Message
+          </button>
+
+        </form>
+      
           <div className={styles.contactInfo}>
-            <div className={styles.infoCard}>
+            <div className={styles.infoCard1}>
               <strong>Email:</strong>
-              <p>support@inventory.com</p>
+              <p>admin@gmail.com</p>
             </div>
-            <div className={styles.infoCard}>
+            <div className={styles.infoCard2}>
               <strong>Support Hours:</strong>
               <p>Mon - Fri, 9:00 AM - 6:00 PM</p>
             </div>
           </div>
-        </div>
+        
       </section>
 
       <footer className={styles.footer}>

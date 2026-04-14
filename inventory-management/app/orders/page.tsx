@@ -1,93 +1,221 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./orders.module.css";
 
-const initialOrders = [
-  { id: "ORD-101", customer: "Tech Corp", date: "2026-04-05", total: 1200, status: "Delivered" },
-  { id: "ORD-102", customer: "Retail Hub", date: "2026-04-08", total: 450, status: "Pending" },
-];
+export default function OrdersPage() {
+  const [orders, setOrders] = useState<any[]>([]);
+  const [inventory, setInventory] = useState<any[]>([]);
 
-export default function OrderManagement() {
-  const [orders, setOrders] = useState(initialOrders);
-  const [selectedOrder, setSelectedOrder] = useState<any>(null);
-  const [isEditing, setIsEditing] = useState(false);
+  const [newOrder, setNewOrder] = useState({
+    customerName: "",
+    product: "",
+    quantity: 1,
+    amount: 0,
+    status: "Pending"
+  });
 
-  // --- Functions ---
-  const handleView = (order: any) => {
-    setSelectedOrder(order);
-    setIsEditing(false); // View mode
+  useEffect(() => {
+    Promise.all([
+      fetch("http://localhost:5000/orders"),
+      fetch("http://localhost:5000/inventory")
+    ]).then(async ([ordRes, invRes]) => {
+      setOrders(await ordRes.json());
+      setInventory(await invRes.json());
+    });
+  }, []);
+
+  // 🔹 Handle Product Selection
+  const handleProductChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedProd = inventory.find(item => item.name === e.target.value);
+
+    setNewOrder({
+      ...newOrder,
+      product: e.target.value,
+      amount: selectedProd ? selectedProd.price * newOrder.quantity : 0
+    });
   };
 
-  const handleEdit = (order: any) => {
-    setSelectedOrder(order);
-    setIsEditing(true); // Edit mode
+  // 🔹 Handle Quantity Change
+  const handleQuantityChange = (qty: number) => {
+    const selectedProd = inventory.find(item => item.name === newOrder.product);
+
+    setNewOrder({
+      ...newOrder,
+      quantity: qty,
+      amount: selectedProd ? selectedProd.price * qty : 0
+    });
   };
 
-  const closeModal = () => setSelectedOrder(null);
+  // 🔹 Add Order + Reduce Stock
+  const handleAddOrder = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const updateStatus = (id: string, newStatus: string) => {
-    setOrders(orders.map(o => o.id === id ? { ...o, status: newStatus } : o));
-    closeModal();
+    const selectedItem = inventory.find(i => i.name === newOrder.product);
+
+    if (!selectedItem) {
+      alert("Please select a product");
+      return;
+    }
+
+    if (selectedItem.quantity < newOrder.quantity) {
+      alert("Not enough stock!");
+      return;
+    }
+
+    const orderToSave = {
+      ...newOrder,
+      id: `ORD-${Math.floor(100 + Math.random() * 900)}`,
+      date: new Date().toISOString().split("T")[0]
+    };
+
+    // Save Order
+    const res = await fetch("http://localhost:5000/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(orderToSave)
+    });
+
+    if (res.ok) {
+      const saved = await res.json();
+
+      // 🔥 Reduce Stock
+      await fetch(`http://localhost:5000/inventory/${selectedItem.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          quantity: selectedItem.quantity - newOrder.quantity
+        })
+      });
+
+      setOrders([...orders, saved]);
+
+      // Reset form
+      setNewOrder({
+        customerName: "",
+        product: "",
+        quantity: 1,
+        amount: 0,
+        status: "Pending"
+      });
+    }
+  };
+
+  // 🔹 Update Order Status
+  const updateStatus = async (id: string, newStatus: string) => {
+    const res = await fetch(`http://localhost:5000/orders/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: newStatus })
+    });
+
+    if (res.ok) {
+      setOrders(orders.map(o =>
+        o.id === id ? { ...o, status: newStatus } : o
+      ));
+    }
   };
 
   return (
     <div className={styles.container}>
-      <h1 style={{ color: "#1e293b" }}>Order Management</h1>
-      
-      <table className={styles.orderTable}>
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Customer</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((order) => (
-            <tr key={order.id}>
-              <td>{order.id}</td>
-              <td>{order.customer}</td>
-              <td><span className={`${styles.statusBadge} ${styles[order.status.toLowerCase()]}`}>{order.status}</span></td>
-              <td>
-                <button onClick={() => handleView(order)} className={styles.viewBtn}>View</button>
-                <button onClick={() => handleEdit(order)} className={styles.editBtn}>Edit</button>
-              </td>
+      <h1 className={styles.title}>Order Management</h1>
+
+      {/* 🔹 ORDER FORM */}
+      <div className={styles.formCard}>
+        <h3>Create New Order</h3>
+
+        <form onSubmit={handleAddOrder} className={styles.addForm}>
+          <input
+            type="text"
+            placeholder="Customer Name"
+            value={newOrder.customerName}
+            onChange={(e) =>
+              setNewOrder({ ...newOrder, customerName: e.target.value })
+            }
+            required
+          />
+
+          <select
+            value={newOrder.product}
+            onChange={handleProductChange}
+            className={styles.selectInput}
+            required
+          >
+            <option value="">Select Product</option>
+            {inventory.map(item => (
+              <option
+                key={item.id}
+                value={item.name}
+                disabled={item.quantity === 0}
+              >
+                {item.name} ({item.quantity} available)
+              </option>
+            ))}
+          </select>
+
+          <input
+            type="number"
+            placeholder="Quantity"
+            min="1"
+            value={newOrder.quantity}
+            onChange={(e) => handleQuantityChange(Number(e.target.value))}
+            required
+          />
+
+          <input
+            type="number"
+            placeholder="Total Amount"
+            value={newOrder.amount}
+            readOnly
+          />
+
+          <button type="submit" className={styles.addBtn}>
+            Place Order
+          </button>
+        </form>
+      </div>
+
+      {/* 🔹 ORDER TABLE */}
+      <div className={styles.tableWrapper}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Customer</th>
+              <th>Product</th>
+              <th>Qty</th>
+              <th>Amount</th>
+              <th>Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
 
-      {/* MODAL FOR VIEW / EDIT */}
-      {selectedOrder && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <h2>{isEditing ? "Edit Order" : "Order Details"}</h2>
-            <hr />
-            <p><strong>ID:</strong> {selectedOrder.id}</p>
-            <p><strong>Customer:</strong> {selectedOrder.customer}</p>
-            <p><strong>Total:</strong> Rs.{selectedOrder.total}</p>
-            
-            {isEditing ? (
-              <div className={styles.editActions}>
-                <label>Change Status:</label>
-                <select 
-                  defaultValue={selectedOrder.status}
-                  onChange={(e) => updateStatus(selectedOrder.id, e.target.value)}
-                >
-                  <option value="Pending">Pending</option>
-                  <option value="Shipped">Shipped</option>
-                  <option value="Delivered">Delivered</option>
-                </select>
-              </div>
-            ) : (
-              <p><strong>Current Status:</strong> {selectedOrder.status}</p>
-            )}
+          <tbody>
+            {orders.map(order => (
+              <tr key={order.id}>
+                <td>{order.id}</td>
+                <td className={styles.nameCell}>{order.customerName}</td>
+                <td>{order.product}</td>
+                <td>{order.quantity}</td>
+                <td>Rs. {order.amount?.toLocaleString()}</td>
 
-            <button onClick={closeModal} className={styles.closeBtn}>Close</button>
-          </div>
-        </div>
-      )}
+                <td>
+                  <select
+                    value={order.status}
+                    className={styles.statusSelect}
+                    onChange={(e) =>
+                      updateStatus(order.id, e.target.value)
+                    }
+                  >
+                    <option value="Pending">Pending</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                  </select>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

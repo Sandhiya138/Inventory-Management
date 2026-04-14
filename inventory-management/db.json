@@ -13,54 +13,115 @@
       "email": "staff@gmail.com",
       "password": "123",
       "role": "staff"
+    },
+    {
+      "name": "sandhiya",
+      "email": "sandyaaa13@gmail.com",
+      "password": "12345",
+      "role": "staff",
+      "id": "qN8Qe0Al6z8"
+    },
+    {
+      "name": "ritika",
+      "email": "riti@gmail.com",
+      "password": "1234",
+      "role": "viewer",
+      "id": "nR5T_LBZP8o"
+    },
+    {
+      "name": "sandy",
+      "email": "sand@gmail.com",
+      "password": "1234",
+      "role": "staff",
+      "id": "e9Lw7-lwoAc"
     }
   ],
   "inventory": [
     {
       "id": "1",
-      "name": "Laptop Pro 15",
+      "name": "MacBook Pro M3",
       "category": "Electronics",
-      "quantity": 12,
-      "price": 85000
+      "quantity": 14,
+      "price": 185000,
+      "status": "In Stock"
     },
     {
       "id": "2",
-      "name": "Ergonomic Chair",
-      "category": "Furniture",
-      "quantity": 3,
-      "price": 12000
+      "name": "Mechanical Keyboard",
+      "category": "Accessories",
+      "quantity": 13,
+      "price": 4500,
+      "status": "Low Stock",
+      "expiryDate": "2026-04-20"
     },
     {
       "id": "3",
-      "name": "Wireless Mouse",
-      "category": "Accessories",
-      "quantity": 45,
-      "price": 1500
+      "name": "Office Desk",
+      "category": "Furniture",
+      "quantity": 10,
+      "price": 12000,
+      "status": "In Stock"
+    },
+    {
+      "name": "r15 v4 racing blue",
+      "quantity": 10,
+      "price": 2000000,
+      "category": "Electronics",
+      "id": "cjMsykr-cOQ"
+    },
+    {
+      "name": "Maggie family pack",
+      "quantity": 15,
+      "price": 1200,
+      "category": "Food",
+      "expiryDate": "0026-12-20",
+      "id": "H_cmKF9yjUs"
     }
   ],
   "orders": [
     {
-      "id": "ORD-001",
-      "customer": "John Doe",
-      "date": "2026-04-09",
-      "total": 85000,
+      "id": "ORD-101",
+      "customerName": "Alice Johnson",
+      "product": "MacBook Pro M3",
+      "date": "2026-04-08",
+      "amount": 185000,
       "status": "Delivered"
     },
     {
-      "id": "ORD-002",
-      "customer": "Jane Smith",
-      "date": "2026-04-10",
-      "total": 24000,
-      "status": "Pending"
+      "id": "ORD-102",
+      "customerName": "Bob Smith",
+      "product": "Mechanical Keyboard",
+      "date": "2026-04-09",
+      "amount": 4500,
+      "status": "Delivered"
     }
   ],
   "messages": [
     {
       "id": "1",
-      "name": "Inquiry",
+      "sender": "Guest User",
       "email": "guest@example.com",
-      "message": "Do you offer bulk discounts for corporate offices?",
-      "date": "2026-04-09"
+      "subject": "Bulk Inquiry",
+      "content": "Do you have 50 units of keyboards available?",
+      "date": "2026-04-09",
+      "isRead": true
+    },
+    {
+      "sender": "sanjay",
+      "email": "sanjay@gmail.com",
+      "content": "can i get r15 bike new model",
+      "date": "2026-04-14",
+      "id": "S0FcmuyRWeA",
+      "isRead": true
     }
-  ]
+  ],
+  "alerts": [
+    {
+      "id": "1",
+      "type": "Low Stock",
+      "message": "Mechanical Keyboard is running low (4 left)",
+      "isRead": false
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

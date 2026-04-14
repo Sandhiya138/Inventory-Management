@@ -1,48 +1,98 @@
-/* users.module.css / reports.module.css snippets */
 .container {
   padding: 40px;
-  background-color: #f8fafc;
   min-height: 100vh;
+  background: linear-gradient(to right, #141e30, #243b55);
 }
 
-.searchBar {
+.title {
+  color: white;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+/* FORM */
+.formCard {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.form input,
+.form select {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background: #334155;
+  color: white;
+}
+
+.form button {
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  border: none;
+  color: white;
   padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* SEARCH */
+.searchBar {
+  padding: 10px;
   width: 100%;
-  max-width: 400px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  margin-top: 10px;
-  color: #1e293b;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: wheat;
+}
+
+/* USER CARDS */
+.userGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .userCard {
-  background: white;
-  border: 1px solid #e2e8f0;
-  color: #1e293b; /* Ensures text is visible */
-  padding: 20px;
-  border-radius: 12px;
+  background: #1e293b;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  width: 300px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border-color: linear-gradient(to right, #f8f8f8, #1e8a71) solid  ;
 }
 
-.roleSelect {
+.userCard h3 {
+  margin: 0;
+}
+
+.userCard p {
+  margin: 5px 0;
+  color: #cbd5f5;
+}
+
+.userCard select {
+  margin-top: 10px;
   padding: 5px;
-  border-radius: 4px;
-  border: 1px solid #cbd5e1;
-  background: #f1f5f9;
-  color: #1e293b;
-  font-size: 12px;
+  border-radius: 5px;
+  background: #334155;
+  color: white;
 }
 
-.statCard {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  text-align: left;
+/* DELETE BUTTON */
+.deleteBtn {
+  background: #ef4444;
+  border: none;
+  color: white;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
 }
-
-.label { color: #64748b; font-weight: 600; font-size: 14px; }
-.value { color: #1e293b; font-size: 24px; margin: 10px 0; }

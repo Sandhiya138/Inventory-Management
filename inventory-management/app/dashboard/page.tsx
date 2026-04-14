@@ -1,51 +1,92 @@
 "use client";
 import Link from "next/link";
+import { useEffect, useState } from "react";   
 import styles from "./dashboard.module.css";
 
-export default function AdminDashboard() {
+function AdminDashboard() {
+  const [stats, setStats] = useState({
+    totalValue: 0,
+    lowStockCount: 0,
+    totalItems: 0
+  });
+   const [role, setRole] = useState<string | null>(null);
+   useEffect(() => {
+  const storedRole = localStorage.getItem("role");
+  setRole(storedRole);
+}, []);
+
+  useEffect(() => {
+    const loadStats = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/inventory");
+        const data = await res.json();
+        
+        const totalVal = data.reduce((acc: number, item: any) => acc + (item.price * item.quantity), 0);
+        const lowStock = data.filter((item: any) => item.quantity < 5).length;
+       
+
+        setStats({
+          totalValue: totalVal,
+          lowStockCount: lowStock,
+          totalItems: data.length
+        });
+      } catch (err) {
+        console.error("Dashboard fetch error:", err);
+      }
+    };
+    loadStats();
+  }, []);
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1>Admin Control Center</h1>
-        <p>Welcome back! Here is an overview of your system.</p>
+        <h1 className={styles.title}>
+        {role === "admin" && "👑 Admin Control Panel"}
+        {role === "staff" && "🧑‍💼 Staff Dashboard"}
+      </h1>
+        <p style={{ color:"ffffff" ,fontFamily:"emoji",fontSize:"20px"}}>Welcome back! Here is an overview of your system.</p>
       </header>
 
+      <div style={{ display: 'flex', gap: '20px', marginBottom: '30px' }}>
+         <div style={{ background: '#e0f2fe', padding: '15px', borderRadius: '8px', flex: 1, color: '#0369a1' }}>
+            <strong>Total Value:</strong> Rs. {stats.totalValue.toLocaleString()}
+         </div>
+         <div style={{ background: '#fef2f2', padding: '15px', borderRadius: '8px', flex: 1, color: '#b91c1c' }}>
+            <strong>Low Stock:</strong> {stats.lowStockCount} Items
+         </div>
+      </div>
+
       <div className={styles.grid}>
-        {/* Inventory Card */}
         <Link href="/inventory" className={styles.card}>
           <div className={styles.icon}>📦</div>
           <h3>Stock Levels</h3>
-          <p>Manage products and update quantities.</p>
+          <p>Managing {stats.totalItems} products.</p>
         </Link>
 
-        {/* Orders Card */}
         <Link href="/orders" className={styles.card}>
           <div className={styles.icon}>📝</div>
           <h3>Order Tracking</h3>
           <p>Monitor sales and purchase orders.</p>
         </Link>
 
-        {/* Reports Card */}
         <Link href="/reports" className={styles.card}>
           <div className={styles.icon}>📊</div>
           <h3>Analytics</h3>
-          <p>View sales trends and inventory reports.</p>
+          <p>View sales trends.</p>
         </Link>
 
-        {/* Users Card */}
-        <Link href="/users" className={styles.card}>
-          <div className={styles.icon}>👥</div>
-          <h3>Team Management</h3>
-          <p>Assign roles and manage user accounts.</p>
-        </Link>
-      </div>
+   
 
-      {/* Alerts Section (Embedded in Dashboard) */}
-      <section className={styles.alertsSection}>
-        <h3>⚠️ System Notifications</h3>
-        <div className={styles.alertItem}>Low Stock: iPhone 15 Pro (2 units remaining)</div>
-        <div className={styles.alertItem}>Pending Order: #ORD-992 requires approval.</div>
-      </section>
+{role === "admin" && (
+  <Link href="/users" className={styles.card}>
+    <div className={styles.icon}>👥</div>
+    <h3>Team Management</h3>
+    <p>Assign roles and manage user accounts.</p>
+  </Link>
+)}
+        </div>
     </div>
   );
 }
+
+export default AdminDashboard;

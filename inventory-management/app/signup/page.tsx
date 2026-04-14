@@ -1,57 +1,71 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import "./signup.css";
+import styles from "./signup.module.css";
 
 export default function SignupPage() {
   const router = useRouter();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("staff");
+  const [formData, setFormData] = useState({ name: "", email: "", password: "", role: "staff" });
 
-  const handleSignup = () => {
-    if (!name || !email || !password) {
-      alert("Please fill all fields");
-      return;
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      // 1. Connectivity Check: Check if user already exists
+      const checkRes = await fetch(`http://localhost:5000/users?email=${formData.email}`);
+      const existing = await checkRes.json();
+
+      if (existing.length > 0) {
+        alert("This email is already registered in the system.");
+        return;
+      }
+
+      // 2. Save to JSON Server
+      const response = await fetch("http://localhost:5000/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert("Account created successfully!");
+        router.push("/login");
+      }
+    } catch (err) {
+      alert("Error: Make sure JSON Server is running on port 5000!");
     }
-
-    const newUser = { name, email, password, role };
-    const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
-    
-    // Check if user already exists
-    if (existingUsers.some((u: any) => u.email === email)) {
-      alert("Email already registered!");
-      return;
-    }
-
-    existingUsers.push(newUser);
-    localStorage.setItem("users", JSON.stringify(existingUsers));
-
-    alert("Signup successful! Please login.");
-    router.push("/login");
   };
 
   return (
-    <div className="signup-container">
-      <div className="signup-box">
-        <h1  style={{ color: "#1e293b", fontSize: "24px" }}>Create Account</h1>
-        <input type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+    <div className={styles.container}>
+      <form className={styles.formCard} onSubmit={handleSignup}>
+        <h1 style={{ color: "#1e293b", fontSize:"25px" }}>Join to Explore!!</h1>
         
-        <label style={{fontSize: '14px', color: '#64748b', marginBottom: '5px'}}>Select Role</label>
-        <select value={role} onChange={(e) => setRole(e.target.value)}>
-          <option value="admin">Admin</option>
-          <option value="staff">Staff</option>
+        <label className={styles.label}>Full Name</label>
+        <input type="text" className={styles.input} placeholder="Name"
+          onChange={(e) => setFormData({...formData, name: e.target.value})} required />
+
+        <label className={styles.label}>Email Address</label>
+        <input type="email" className={styles.input} placeholder="Email"
+          onChange={(e) => setFormData({...formData, email: e.target.value})} required />
+
+        <label className={styles.label}>Password</label>
+        <input type="password" className={styles.input}  placeholder="password"
+          onChange={(e) => setFormData({...formData, password: e.target.value})} required />
+
+        <label className={styles.label}>Select Role</label>
+        <select className={styles.input} value={formData.role} 
+          onChange={(e) => setFormData({...formData, role: e.target.value})}>
+          <option value="admin">Admin </option>
+          <option value="staff">Staff </option>
           <option value="viewer">Viewer</option>
         </select>
 
-        <button onClick={handleSignup}>Create Account</button>
-        <p className="login-link">
+        <button type="submit" className={styles.btn}>Sign Up</button>
+        <p className="login-link" style={{color:"black"}}>
           Already have an account? <a href="/login">Login</a>
         </p>
-      </div>
+      </form>
     </div>
   );
 }
