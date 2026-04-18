@@ -110,7 +110,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const checkMessages = () => {
-      fetch("http://localhost:5000/messages")
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages`)
         .then((res) => res.json())
         .then((data) => {
           const unread = data.filter((m: any) => !m.isRead);
