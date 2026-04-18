@@ -9,7 +9,7 @@ export default function AdminMessages() {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const res = await fetch("http://localhost:5000/messages");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages`);
         const data = await res.json();
         setMessages(data.reverse());
       } catch (error) {
@@ -23,7 +23,7 @@ export default function AdminMessages() {
 
   const markAsRead = async (id: string) => {
     try {
-      await fetch(`http://localhost:5000/messages/${id}`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isRead: true }),
@@ -39,7 +39,7 @@ export default function AdminMessages() {
 
   const deleteMessage = async (id: string) => {
     if (confirm("Are you sure you want to delete this inquiry?")) {
-      await fetch(`http://localhost:5000/messages/${id}`, { method: "DELETE" });
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages/${id}`, { method: "DELETE" });
       setMessages(messages.filter((m) => m.id !== id));
     }
   };

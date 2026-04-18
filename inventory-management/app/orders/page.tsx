@@ -16,8 +16,8 @@ export default function OrdersPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch("http://localhost:5000/orders"),
-      fetch("http://localhost:5000/inventory")
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`),
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/inventory`)
     ]).then(async ([ordRes, invRes]) => {
       setOrders(await ordRes.json());
       setInventory(await invRes.json());
@@ -69,7 +69,7 @@ export default function OrdersPage() {
     };
 
     // Save Order
-    const res = await fetch("http://localhost:5000/orders", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderToSave)
@@ -79,7 +79,7 @@ export default function OrdersPage() {
       const saved = await res.json();
 
       // 🔥 Reduce Stock
-      await fetch(`http://localhost:5000/inventory/${selectedItem.id}`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/inventory/${selectedItem.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -102,7 +102,7 @@ export default function OrdersPage() {
 
   // 🔹 Update Order Status
   const updateStatus = async (id: string, newStatus: string) => {
-    const res = await fetch(`http://localhost:5000/orders/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: newStatus })

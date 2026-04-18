@@ -30,8 +30,8 @@ useEffect(() => {
     const fetchReportData = async () => {
       try {
         const [invRes, orderRes] = await Promise.all([
-          fetch("http://localhost:5000/inventory"),
-          fetch("http://localhost:5000/orders")
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/inventory`),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`)
         ]);
 
         const inventory = await invRes.json();

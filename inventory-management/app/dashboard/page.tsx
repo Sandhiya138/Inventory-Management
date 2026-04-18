@@ -18,7 +18,7 @@ function AdminDashboard() {
   useEffect(() => {
     const loadStats = async () => {
       try {
-        const res = await fetch("http://localhost:5000/inventory");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/inventory`);
         const data = await res.json();
         
         const totalVal = data.reduce((acc: number, item: any) => acc + (item.price * item.quantity), 0);

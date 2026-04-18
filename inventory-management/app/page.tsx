@@ -16,7 +16,7 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5000/messages", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -62,15 +62,15 @@ export default function Home() {
         </p>
         <img src="/about.jpg" alt="Inventory dashboard" className={styles.heroImg} />
         <div className={styles.statsSection}>
-  <div>
+  <div className={styles.div1} >
     <h2>100+</h2>
     <p>Products Managed</p>
   </div>
-  <div>
+  <div className={styles.div2}>
     <h2>50+</h2>
     <p>Orders Processed</p>
   </div>
-  <div>
+  <div className={styles.div3}>
     <h2>10+</h2>
     <p>Suppliers</p>
   </div>

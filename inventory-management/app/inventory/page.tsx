@@ -20,7 +20,7 @@ export default function InventoryPage() {
   const [role, setRole] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/inventory")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/usersinventory`)
       .then(res => res.json())
       .then(data => setItems(data));
 
@@ -40,7 +40,7 @@ export default function InventoryPage() {
 
   const handleAddProduct = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:5000/inventory", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/inventory`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...newItem, id: Date.now().toString() }),
@@ -55,7 +55,7 @@ export default function InventoryPage() {
 
   const handleDelete = async (id: string, name: string) => {
     if (window.confirm(`Are you sure you want to delete "${name}"?`)) {
-      await fetch(`http://localhost:5000/inventory/${id}`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/inventory/${id}`, {
         method: "DELETE",
       });
       setItems(items.filter(item => item.id !== id));
@@ -69,7 +69,7 @@ export default function InventoryPage() {
   };
 
   const handleUpdate = async () => {
-    await fetch(`http://localhost:5000/inventory/${editId}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/inventory/${editId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newItem),

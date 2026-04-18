@@ -16,7 +16,7 @@ export default function LoginPage() {
 
   try {
     const res = await fetch(
-      `http://localhost:5000/users?email=${encodeURIComponent(cleanEmail)}`
+      `${process.env.NEXT_PUBLIC_API_URL}/users?email=${encodeURIComponent(cleanEmail)}`
     );
 
     const data = await res.json();

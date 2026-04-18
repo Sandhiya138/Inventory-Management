@@ -12,7 +12,7 @@ export default function SignupPage() {
 
     try {
       // 1. Connectivity Check: Check if user already exists
-      const checkRes = await fetch(`http://localhost:5000/users?email=${formData.email}`);
+      const checkRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users?email=${formData.email}`);
       const existing = await checkRes.json();
 
       if (existing.length > 0) {
@@ -21,7 +21,7 @@ export default function SignupPage() {
       }
 
       // 2. Save to JSON Server
-      const response = await fetch("http://localhost:5000/users", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

@@ -40,7 +40,14 @@
       "name": "anonymous",
       "email": "anonymous@gmail.com",
       "password": "12345",
-      "role": "Staff"
+      "role": "staff"
+    },
+    {
+      "name": "deepan",
+      "email": "deepan@gmail.com",
+      "password": "1234",
+      "role": "staff",
+      "id": "6JgvP516ECQ"
     }
   ],
   "inventory": [

@@ -29,7 +29,7 @@ export default function UserManagement() {
   const handleAddUser = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5000/users", {
+    const res = await fetch("${process.env.NEXT_PUBLIC_API_URL}/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...newUser, id: Date.now().toString() }),
@@ -54,7 +54,7 @@ export default function UserManagement() {
 
   // UPDATE ROLE
   const updateUserRole = async (id: string, newRole: string) => {
-    await fetch(`http://localhost:5000/users/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ role: newRole }),

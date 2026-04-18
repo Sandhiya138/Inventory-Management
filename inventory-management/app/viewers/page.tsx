@@ -25,8 +25,8 @@ export default function ViewersPage() {
     }
 
     Promise.all([
-      fetch("http://localhost:5000/inventory"),
-      fetch("http://localhost:5000/orders")
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/inventory`),
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`)
     ]).then(async ([invRes, ordRes]) => {
       setItems(await invRes.json());
       setOrders(await ordRes.json());
