@@ -20,7 +20,7 @@ export default function InventoryPage() {
   const [role, setRole] = useState("");
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/usersinventory`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/inventory`)
       .then(res => res.json())
       .then(data => setItems(data));
 
