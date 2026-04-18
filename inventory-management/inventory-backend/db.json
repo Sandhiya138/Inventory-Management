@@ -1,0 +1,167 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Admin User",
+      "email": "admin@gmail.com",
+      "password": "123",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "name": "Staff Member",
+      "email": "staff@gmail.com",
+      "password": "123",
+      "role": "staff"
+    },
+    {
+      "name": "sandhiya",
+      "email": "sandyaaa13@gmail.com",
+      "password": "12345",
+      "role": "staff",
+      "id": "qN8Qe0Al6z8"
+    },
+    {
+      "name": "ritika",
+      "email": "riti@gmail.com",
+      "password": "1234",
+      "role": "viewer",
+      "id": "nR5T_LBZP8o"
+    },
+    {
+      "name": "sandy",
+      "email": "sand@gmail.com",
+      "password": "1234",
+      "role": "staff",
+      "id": "e9Lw7-lwoAc"
+    },
+    {
+      "id": "TvKOUd_04bk",
+      "name": "anonymous",
+      "email": "anonymous@gmail.com",
+      "password": "12345",
+      "role": "staff"
+    },
+    {
+      "name": "deepan",
+      "email": "deepan@gmail.com",
+      "password": "1234",
+      "role": "staff",
+      "id": "6JgvP516ECQ"
+    }
+  ],
+  "inventory": [
+    {
+      "id": "1",
+      "name": "MacBook Pro M3",
+      "category": "Electronics",
+      "quantity": 14,
+      "price": 185000,
+      "status": "In Stock"
+    },
+    {
+      "id": "2",
+      "name": "Mechanical Keyboard",
+      "category": "Accessories",
+      "quantity": 13,
+      "price": 4500,
+      "status": "Low Stock",
+      "expiryDate": "2026-04-20"
+    },
+    {
+      "id": "3",
+      "name": "Office Desk",
+      "category": "Furniture",
+      "quantity": 10,
+      "price": 12000,
+      "status": "In Stock"
+    },
+    {
+      "name": "r15 v4 racing blue",
+      "quantity": 9,
+      "price": 2000000,
+      "category": "Electronics",
+      "id": "cjMsykr-cOQ"
+    },
+    {
+      "name": "Maggie family pack",
+      "quantity": 14,
+      "price": 1200,
+      "category": "Food",
+      "expiryDate": "0026-12-20",
+      "id": "H_cmKF9yjUs"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD-101",
+      "customerName": "Alice Johnson",
+      "product": "MacBook Pro M3",
+      "date": "2026-04-08",
+      "amount": 185000,
+      "status": "Delivered"
+    },
+    {
+      "id": "ORD-102",
+      "customerName": "Bob Smith",
+      "product": "Mechanical Keyboard",
+      "date": "2026-04-09",
+      "amount": 4500,
+      "status": "Delivered"
+    },
+    {
+      "customerName": "surjith",
+      "product": "Maggie family pack",
+      "quantity": 1,
+      "amount": 1200,
+      "status": "Delivered",
+      "id": "I4WuZ2hdDmw",
+      "date": "2026-04-15"
+    },
+    {
+      "customerName": "sanjay",
+      "product": "r15 v4 racing blue",
+      "quantity": 1,
+      "amount": 2000000,
+      "status": "Pending",
+      "id": "fesBybVmq1o",
+      "date": "2026-04-18"
+    }
+  ],
+  "messages": [
+    {
+      "id": "1",
+      "sender": "Guest User",
+      "email": "guest@example.com",
+      "subject": "Bulk Inquiry",
+      "content": "Do you have 50 units of keyboards available?",
+      "date": "2026-04-09",
+      "isRead": true
+    },
+    {
+      "sender": "sandy",
+      "email": "sandy@gmail.com",
+      "content": "how to purchase things ",
+      "date": "2026-04-15",
+      "id": "EyaBAQPag7o",
+      "isRead": true
+    },
+    {
+      "sender": "sanjay",
+      "email": "sanjay@gmail.com",
+      "content": "place a order r15 bike",
+      "date": "2026-04-18",
+      "id": "02U430cw1Rg",
+      "isRead": true
+    }
+  ],
+  "alerts": [
+    {
+      "id": "1",
+      "type": "Low Stock",
+      "message": "Mechanical Keyboard is running low (4 left)",
+      "isRead": false
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
