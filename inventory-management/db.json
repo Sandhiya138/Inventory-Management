@@ -34,6 +34,13 @@
       "password": "1234",
       "role": "staff",
       "id": "e9Lw7-lwoAc"
+    },
+    {
+      "id": "TvKOUd_04bk",
+      "name": "anonymous",
+      "email": "anonymous@gmail.com",
+      "password": "12345",
+      "role": "Staff"
     }
   ],
   "inventory": [
@@ -64,14 +71,14 @@
     },
     {
       "name": "r15 v4 racing blue",
-      "quantity": 10,
+      "quantity": 9,
       "price": 2000000,
       "category": "Electronics",
       "id": "cjMsykr-cOQ"
     },
     {
       "name": "Maggie family pack",
-      "quantity": 15,
+      "quantity": 14,
       "price": 1200,
       "category": "Food",
       "expiryDate": "0026-12-20",
@@ -94,6 +101,24 @@
       "date": "2026-04-09",
       "amount": 4500,
       "status": "Delivered"
+    },
+    {
+      "customerName": "surjith",
+      "product": "Maggie family pack",
+      "quantity": 1,
+      "amount": 1200,
+      "status": "Delivered",
+      "id": "I4WuZ2hdDmw",
+      "date": "2026-04-15"
+    },
+    {
+      "customerName": "sanjay",
+      "product": "r15 v4 racing blue",
+      "quantity": 1,
+      "amount": 2000000,
+      "status": "Pending",
+      "id": "fesBybVmq1o",
+      "date": "2026-04-18"
     }
   ],
   "messages": [
@@ -107,11 +132,19 @@
       "isRead": true
     },
     {
+      "sender": "sandy",
+      "email": "sandy@gmail.com",
+      "content": "how to purchase things ",
+      "date": "2026-04-15",
+      "id": "EyaBAQPag7o",
+      "isRead": true
+    },
+    {
       "sender": "sanjay",
       "email": "sanjay@gmail.com",
-      "content": "can i get r15 bike new model",
-      "date": "2026-04-14",
-      "id": "S0FcmuyRWeA",
+      "content": "place a order r15 bike",
+      "date": "2026-04-18",
+      "id": "02U430cw1Rg",
       "isRead": true
     }
   ],

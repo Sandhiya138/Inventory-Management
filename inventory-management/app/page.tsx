@@ -47,6 +47,9 @@ export default function Home() {
           Say goodbye to manual tracking. Our intelligent platform provides end-to-end 
           visibility of your stock, demand forecasting, and optimized reordering.
         </p>
+        <a href="/login" className={styles.ctaBtn}>
+          Get Started 
+        </a>
       </section>
 
       {/* ABOUT SECTION */}
@@ -58,6 +61,21 @@ export default function Home() {
           managing a small shop or a large warehouse, our system scales with you.
         </p>
         <img src="/about.jpg" alt="Inventory dashboard" className={styles.heroImg} />
+        <div className={styles.statsSection}>
+  <div>
+    <h2>100+</h2>
+    <p>Products Managed</p>
+  </div>
+  <div>
+    <h2>50+</h2>
+    <p>Orders Processed</p>
+  </div>
+  <div>
+    <h2>10+</h2>
+    <p>Suppliers</p>
+  </div>
+</div>
+
       </section>
 
       {/* FEATURES SECTION */}
