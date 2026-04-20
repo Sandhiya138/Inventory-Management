@@ -1,0 +1,40 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  padding: 40px 0;
+}
+
+.card {
+  background: #ffffff; /* Light cream from your palette */
+  border: 1px solid #00225c;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: left;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(75, 46, 43, 0.05);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  border-color: #4b84b1dd; /* Tan accent */
+  box-shadow: 0 12px 20px rgba(75, 46, 43, 0.1);
+}
+
+.icon {
+  color: #076a95c7; /* Tan accent */
+  margin-bottom: 20px;
+}
+
+.cardTitle {
+  color: #4B2E2B; /* Dark Espresso */
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.cardDesc {
+  color: #6d4c41;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}

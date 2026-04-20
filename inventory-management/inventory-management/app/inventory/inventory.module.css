@@ -1,0 +1,204 @@
+.container {
+  padding: 40px;
+  max-width: 1100px;
+  margin: auto;
+  min-height: 100vh;
+  background: linear-gradient(to right, #141e30, #243b55);
+}
+
+.title {
+  color: #ffffff;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.formCard {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.formCard h3 {
+  color: white;
+}
+
+.addForm {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.addForm input {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background: #334155;
+  color: white;
+}
+
+.addForm button {
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tableWrapper {
+  background: #1e293b;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  background: #334155;
+  color: white;
+  padding: 12px;
+}
+
+.table td {
+  padding: 12px;
+  color: #e2e8f0;
+}
+
+.nameCell {
+  color: white;
+  font-weight: bold;
+}
+
+.lowStock {
+  background: #ef4444;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.inStock {
+  background: #22c55e;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.editBtn {
+  background: #facc15;
+  color: black;
+  border: none;
+  padding: 6px 10px;
+  margin-right: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.deleteBtn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.selectInput {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background: #334155;
+  color: white;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Container for Update/Cancel buttons */
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+}
+
+/* Button for Saving Changes (matches your Blue Gradient) */
+.updateBtn {
+  background: linear-gradient(to right, #00c6ff, #0072ff) !important;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cancelBtn {
+  background: #64748b !important;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Badge for Category in the table */
+.categoryTag {
+  background: #334155;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Hover effects for your buttons */
+.addForm button:hover, .updateBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.editBtn:hover {
+  background: #eab308; /* Slightly darker yellow */
+}
+
+.deleteBtn:hover {
+  background: #dc2626; /* Slightly darker red */
+}
+.filterContainer {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.searchInput {
+  flex: 2;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #334155;
+  color: white;
+  outline: none;
+  font-size: 14px;
+}
+
+.searchInput::placeholder {
+  color: #94a3b8;
+}
+
+.filterSelect {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #334155;
+  color: white;
+  cursor: pointer;
+  outline: none;
+}
+
+.searchInput:focus, .filterSelect:focus {
+  box-shadow: 0 0 0 2px #00c6ff;
+}
