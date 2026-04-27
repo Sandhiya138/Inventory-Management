@@ -28,20 +28,8 @@
       "role": "viewer",
       "id": "nR5T_LBZP8o"
     },
-    {
-      "name": "sandy",
-      "email": "sand@gmail.com",
-      "password": "1234",
-      "role": "staff",
-      "id": "e9Lw7-lwoAc"
-    },
-    {
-      "id": "TvKOUd_04bk",
-      "name": "anonymous",
-      "email": "anonymous@gmail.com",
-      "password": "12345",
-      "role": "staff"
-    },
+    
+   
     {
       "name": "deepan",
       "email": "deepan@gmail.com",

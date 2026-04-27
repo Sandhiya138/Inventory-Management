@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar"; // ✅ ADD THIS
-// app/layout.tsx
+import Navbar from "@/components/navbar"; 
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Inventory Management System", // ✅ update title
+  title: "Inventory Management System", 
   description: "Capstone Project",
 };
 

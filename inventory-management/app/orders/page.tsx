@@ -102,7 +102,7 @@ export default function OrdersPage() {
 
   // 🔹 Update Order Status
   const updateStatus = async (id: string, newStatus: string) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: newStatus })

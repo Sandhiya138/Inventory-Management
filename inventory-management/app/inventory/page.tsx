@@ -234,7 +234,7 @@ const filteredItems = items.filter((item) => {
 </tbody>
         </table>
       </div>
-      {/* --- SEARCH & FILTER BAR --- */}
+      
 
 
 
